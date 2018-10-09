@@ -25,7 +25,7 @@ rollup.rollup({
       'window.m = m': '',
       'b.setDebug(true)': ''
     }),
-    uglify({ mangle: true, compress: true }),
+    uglify.uglify({ mangle: true, compress: true }),
     filesize()
   ]
 })
