@@ -3,34 +3,31 @@ const wright = require('wright')
     , commonJs = require('rollup-plugin-commonjs')
     , nodeResolve = require('rollup-plugin-node-resolve')
 
-let cache = null
-
 wright({
   main: 'assets/index.html',
-  debug: true,
-  run: 'm.redraw',
+  run: true,
   js: {
-    path: 'app.js',
-    compile: compile,
-    watch: 'src/**/*.js'
+    path: 'index.js',
+    compile
   }
 })
 
+let cache
 function compile() {
   return rollup.rollup({
     input: 'src/index.js',
-    cache: cache,
+    cache,
     plugins: [
-      commonJs(),
-      nodeResolve()
+      nodeResolve(),
+      commonJs()
     ]
   })
-  .then(bundle => (
-    cache = bundle,
-    bundle.generate({
+  .then(bundle => {
+    cache = bundle.cache
+    return bundle.generate({
       format: 'iife',
       sourcemap: true
     })
-  ))
-  .then(output => output.code)
+  })
+  .then(r => r.output[0])
 }

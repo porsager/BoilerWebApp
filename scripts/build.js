@@ -3,7 +3,7 @@ const rollup = require('rollup')
     , nodeResolve = require('rollup-plugin-node-resolve')
     , uglify = require('rollup-plugin-uglify')
     , filesize = require('rollup-plugin-filesize')
-    , replace = require('rollup-plugin-replace')
+    , modify = require('rollup-plugin-modify')
     , buble = require('rollup-plugin-buble')
     , fs = require('fs-extra')
     , path = require('path')
@@ -18,12 +18,12 @@ fs.copySync('assets', tmp)
 rollup.rollup({
   input: 'src/index.js',
   plugins: [
-    commonJs(),
     nodeResolve(),
+    commonJs(),
     buble(),
-    replace({
-      'window.m = m': '',
-      'b.setDebug(true)': ''
+    modify({
+      find: /'dev'[\s\S]*?'\/dev'/,
+      replace: ''
     }),
     uglify.uglify({ mangle: true, compress: true }),
     filesize()
@@ -31,12 +31,17 @@ rollup.rollup({
 })
 .then(bundle =>
   bundle.write({
-    file: path.join(tmp, '/app.js'),
+    file: path.join(tmp, '/index.js'),
     format: 'iife',
     sourcemap: true
   })
 )
-.then(() =>
+.then(() => {
   fs.moveSync(tmp, target, { overwrite: true })
-)
+  fs.writeFileSync(
+    path.join(target, 'index.html'),
+    fs.readFileSync(path.join(target, 'index.html'), 'utf8')
+      .replace(' type="module"', '')
+  )
+})
 .catch(console.error)
