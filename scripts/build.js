@@ -20,7 +20,12 @@ rollup.rollup({
   plugins: [
     nodeResolve(),
     commonJs(),
-    buble(),
+    buble({
+      transforms: {
+        dangerousTaggedTemplateString: true
+      },
+      objectAssign: 'Object.assign'
+    }),
     modify({
       find: /'dev'[\s\S]*?'\/dev'/,
       replace: ''
