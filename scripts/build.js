@@ -7,7 +7,7 @@ const rollup = require('rollup')
     , buble = require('rollup-plugin-buble')
     , fs = require('fs-extra')
     , path = require('path')
-    , sass = require('sass')
+    , sass = require('./sass')
 
 const tmp = '_dist'
     , target = 'dist'
@@ -16,9 +16,8 @@ fs.removeSync(tmp)
 fs.ensureDirSync(tmp)
 fs.copySync('assets', tmp)
 
-fs.writeFileSync(
-  path.join(tmp, 'style.css'),
-  sass.renderSync({ file: 'src/css/index.scss' }).css
+sass().then(css =>
+  fs.writeFileSync(path.join(tmp, 'style.css'), css)
 )
 
 rollup.rollup({
