@@ -24,12 +24,17 @@ fs.writeFileSync(
 rollup.rollup({
   input: 'src/index.js',
   plugins: [
-    nodeResolve(),
-    commonJs(),
-    buble(),
     modify({
       find: /'dev'[\s\S]*?'\/dev'/,
       replace: ''
+    }),
+    nodeResolve(),
+    commonJs(),
+    buble({
+      transforms: {
+        dangerousTaggedTemplateString: true
+      },
+      objectAssign: 'Object.assign'
     }),
     uglify.uglify({ mangle: true, compress: true }),
     filesize()
