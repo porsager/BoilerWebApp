@@ -1,5 +1,6 @@
 const wright = require('wright')
     , rollup = require('rollup')
+    , sass = require('sass')
     , commonJs = require('rollup-plugin-commonjs')
     , nodeResolve = require('rollup-plugin-node-resolve')
 
@@ -8,12 +9,18 @@ wright({
   run: true,
   js: {
     path: 'index.js',
-    compile
+    watch: 'src/**/*.js',
+    compile: compileJs
+  },
+  css: {
+    path: 'style.css',
+    watch: 'src/css/**/*.scss',
+    compile: compileSass
   }
 })
 
 let cache
-function compile() {
+function compileJs() {
   return rollup.rollup({
     input: 'src/index.js',
     cache,
@@ -30,4 +37,16 @@ function compile() {
     })
   })
   .then(r => r.output[0])
+}
+
+function compileSass() {
+  return new Promise((resolve, reject) => {
+    sass.render({
+      file: 'src/css/index.scss'
+    }, (err, result) =>
+      err
+        ? reject(err)
+        : resolve(result.css)
+    )
+  })
 }

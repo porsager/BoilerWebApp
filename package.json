@@ -5,11 +5,9 @@
   "main": "dist/index.html",
   "scripts": {
     "dev": "node scripts/dev",
-    "dev:esm": "wright assets/index.html -s src -r run",
     "build": "node scripts/build"
   },
   "devDependencies": {
-    "bss": "1.6.0",
     "fs-extra": "7.0.1",
     "mithril": "2.0.0-rc.4",
     "rollup": "1.6.0",
@@ -20,5 +18,8 @@
     "rollup-plugin-node-resolve": "4.0.1",
     "rollup-plugin-uglify": "6.0.2",
     "wright": "2.0.0-beta32"
+  },
+  "dependencies": {
+    "sass": "1.17.4"
   }
 }
