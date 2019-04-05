@@ -18,6 +18,10 @@ fs.copySync('assets', tmp)
 rollup.rollup({
   input: 'src/index.js',
   plugins: [
+    modify({
+      find: /'dev'[\s\S]*?'\/dev'/,
+      replace: ''
+    }),
     nodeResolve(),
     commonJs(),
     buble({
@@ -25,10 +29,6 @@ rollup.rollup({
         dangerousTaggedTemplateString: true
       },
       objectAssign: 'Object.assign'
-    }),
-    modify({
-      find: /'dev'[\s\S]*?'\/dev'/,
-      replace: ''
     }),
     uglify.uglify({ mangle: true, compress: true }),
     filesize()
