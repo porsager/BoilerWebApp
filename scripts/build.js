@@ -3,7 +3,6 @@ const rollup = require('rollup')
     , nodeResolve = require('rollup-plugin-node-resolve')
     , uglify = require('rollup-plugin-uglify')
     , filesize = require('rollup-plugin-filesize')
-    , modify = require('rollup-plugin-modify')
     , buble = require('rollup-plugin-buble')
     , fs = require('fs-extra')
     , path = require('path')
@@ -18,10 +17,7 @@ fs.copySync('assets', tmp)
 rollup.rollup({
   input: 'src/index.js',
   plugins: [
-    modify({
-      find: /'dev'[\s\S]*?'\/dev'/,
-      replace: ''
-    }),
+    { load: x => x === './dev.js' ? '' : null },
     nodeResolve(),
     commonJs(),
     buble({

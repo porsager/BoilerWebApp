@@ -1,12 +1,7 @@
+import './dev.js'
 import './style.js'
 
 import m from 'mithril'
-import b from 'bss'
-
-'dev'
-window.run = m.redraw
-b.setDebug(true)
-'/dev'
 
 window.addEventListener('resize', m.redraw)
 window.addEventListener('orientationchange', m.redraw)

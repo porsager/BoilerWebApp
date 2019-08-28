@@ -9,16 +9,15 @@
     "build": "node scripts/build"
   },
   "devDependencies": {
-    "bss": "1.6.2",
-    "fs-extra": "8.0.1",
-    "mithril": "2.0.0-rc.4",
-    "rollup": "1.14.6",
-    "rollup-plugin-buble": "0.19.6",
-    "rollup-plugin-commonjs": "10.0.0",
-    "rollup-plugin-filesize": "6.1.0",
-    "rollup-plugin-modify": "3.0.0",
-    "rollup-plugin-node-resolve": "5.0.1",
+    "bss": "1.6.3",
+    "fs-extra": "8.1.0",
+    "mithril": "2.0.4",
+    "rollup": "1.20.3",
+    "rollup-plugin-buble": "0.19.8",
+    "rollup-plugin-commonjs": "10.1.0",
+    "rollup-plugin-filesize": "6.2.0",
+    "rollup-plugin-node-resolve": "5.2.0",
     "rollup-plugin-uglify": "6.0.2",
-    "wright": "2.0.0-beta35"
+    "wright": "2.0.0-rc2"
   }
 }
