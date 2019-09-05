@@ -18,6 +18,6 @@
     "rollup-plugin-filesize": "6.2.0",
     "rollup-plugin-node-resolve": "5.2.0",
     "rollup-plugin-uglify": "6.0.2",
-    "wright": "2.0.0-rc2"
+    "wright": "2.0.0-rc3"
   }
 }
